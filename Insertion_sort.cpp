@@ -44,7 +44,6 @@ int main()
         }
         arr[j + 1] = temp;
     }
-    // Display Array
     display_arr(arr, n);
     return 0;
 }
