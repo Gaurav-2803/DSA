@@ -40,7 +40,7 @@ int main()
         while (j >= 0 && arr[j] > temp)
         {
             arr[j + 1] = arr[j];
-            j--;
+            j--; 
         }
         arr[j + 1] = temp;
     }
