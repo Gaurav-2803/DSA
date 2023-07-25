@@ -10,7 +10,7 @@ void display_arr(int arr[], int n)
 }
 int main()
 {
-    int arr[] = {2, 15, 14, 6,-1,9,0};
+    int arr[] = {2, 15, 14, 6, -1, 9, 0};
     int n = sizeof(arr) / sizeof(arr[0]);
 
     /* Using for loop */
@@ -44,6 +44,7 @@ int main()
         }
         arr[j + 1] = temp;
     }
+    // Display Array
     display_arr(arr, n);
     return 0;
 }
