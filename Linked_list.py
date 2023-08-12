@@ -8,11 +8,44 @@ class link_list:
     def __init__(self):
         self.head = None
 
+    def list_len(self):
+        # Traverse to every node and count them
+        curr_node = self.head
+        size = 0
+        while curr_node is not None:
+            curr_node = curr_node.next
+            size += 1
+        return size
+
     def insert_head(self, new_node):
+        # Store head node
         temp_node = self.head
         self.head = new_node
         new_node.next = temp_node
         del temp_node
+
+    def insert_at(self, new_node, posi):
+        # If insert at position 0 or head node
+        if posi < 0 or posi > self.list_len():
+            print(f"{posi} is invalid position")
+            return
+
+        if posi == 0:
+            self.insert_head(new_node)
+            return
+
+        # Store current node and traverse untill we reach position
+        curr_node = self.head
+        count = 0
+        while True:
+            if count == posi:
+                prev_node.next = new_node
+                new_node.next = curr_node
+                return
+
+            prev_node = curr_node
+            curr_node = curr_node.next
+            count += 1
 
     def insert(self, new_node):
         # If head is none
@@ -35,7 +68,7 @@ class link_list:
         # Print node data untill its not nonw
         curr_node = self.head
         while curr_node is not None:
-            print(curr_node.data)
+            print(curr_node.data, end=", ")
             curr_node = curr_node.next
 
 
@@ -45,6 +78,7 @@ first_node = Node("Gaurav")
 sec_node = Node("Tilak")
 third_node = Node("Harsh")
 fourth_node = Node("Kirtan")
+fifth_node = Node("Asmita")
 
 # Create Linked List
 Linked_list = link_list()
@@ -56,6 +90,9 @@ Linked_list.insert(third_node)
 
 # Insert at head
 Linked_list.insert_head(fourth_node)
+
+# Insert in between or at specific position
+Linked_list.insert_at(fifth_node, 2)
 
 # Print List
 Linked_list.print_list()
