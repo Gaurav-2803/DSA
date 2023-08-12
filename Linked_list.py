@@ -59,6 +59,15 @@ class link_list:
                 last_node = last_node.next
             last_node.next = new_node
 
+    def delete_last(self):
+        last_node = self.head
+        while last_node.next is not None:
+            prev_node = last_node
+            last_node = last_node.next
+
+        prev_node.next = None
+        del last_node
+
     def print_list(self):
         # If No node in linked list
         if self.head is None:
@@ -93,6 +102,9 @@ Linked_list.insert_head(fourth_node)
 
 # Insert in between or at specific position
 Linked_list.insert_at(fifth_node, 2)
+
+# Delete last node
+Linked_list.delete_last()
 
 # Print List
 Linked_list.print_list()
