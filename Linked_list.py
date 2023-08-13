@@ -18,7 +18,7 @@ class link_list:
         return size
 
     def is_empty(self):
-        return self.list_len() == 0
+        return self.head is None
 
     def insert_head(self, new_node):
         # Store head node
@@ -112,7 +112,7 @@ class link_list:
 
     def print_list(self):
         # If No node in linked list
-        if self.head is None:
+        if self.is_empty():
             print("Linked List is empty")
             return
 
@@ -121,6 +121,35 @@ class link_list:
         while curr_node is not None:
             print(curr_node.data, end=", ")
             curr_node = curr_node.next
+
+    def find_mid(self):
+        if self.is_empty():
+            print("Linked List is empty")
+            return
+
+        curr_node = self.head
+        count = 0
+        mid = self.list_len() // 2
+        while True:
+            if count == mid:
+                print(curr_node.data)
+                return
+            curr_node = curr_node.next
+            count += 1
+
+    def reverse(self):
+        if self.is_empty():
+            print("Linked List is empty")
+            return
+
+        prev = None
+        curr_node = self.head
+        while curr_node is not None:
+            next_node = curr_node.next
+            curr_node.next = prev
+            prev = curr_node
+            curr_node = next_node
+        self.head = prev
 
 
 # Node => Data,next
@@ -145,14 +174,22 @@ Linked_list.insert_head(fourth_node)
 # Insert in between or at specific position
 Linked_list.insert_at(fifth_node, 2)
 
-# Delete head node
-Linked_list.delete_head()
+# Find Mid Element
+Linked_list.find_mid()
 
-# Delete last node
-Linked_list.delete_last()
-
-# Delete last node
-Linked_list.delete_at(5)
-
-# Print List
+# Reverse Linked List
 Linked_list.print_list()
+print()
+Linked_list.reverse()
+Linked_list.print_list()
+# Delete head node
+# Linked_list.delete_head()
+
+# # Delete last node
+# Linked_list.delete_last()
+
+# # Delete last node
+# Linked_list.delete_at(5)
+
+# # Print List
+# Linked_list.print_list()
