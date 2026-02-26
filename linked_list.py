@@ -122,6 +122,11 @@ class LinkedList:
                 return
             current = current.next
 
+    def convert_arr_to_ll(self, arr) -> None:
+        """This converts 1D array into Linked List"""
+        for element in arr:
+            self.append(element)
+
 
 ll = LinkedList()
 ll.append(1)
@@ -140,4 +145,7 @@ ll.traverse()
 ll.insert(-15, 2)
 ll.traverse()
 ll.insert(-20, 4)
+ll.traverse()
+
+ll.convert_arr_to_ll([-2, -1, 0])
 ll.traverse()
