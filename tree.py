@@ -78,26 +78,52 @@ class Tree:
                 print(curr.data)
                 curr = curr.right
 
-    def post_order_iter(self, node):
-        pass
+    def post_order_iter_2stack(self, node):
+        arr = []
+
         if node is None:
-            return
+            return arr
+
+        s1, s2 = [], []
+        s1.append(node)
+        while s1:
+            curr = s1.pop()
+            if curr.left:
+                s1.append(curr.left)
+            if curr.right:
+                s1.append(curr.right)
+            s2.append(curr)
+
+        while s2:
+            arr.append(s2.pop().data)
+
+        return arr
+
+    def post_order_iter_1stack(self, node):
+        arr = []
+
+        if node is None:
+            return arr
+
         stack = []
         curr = node
-        while curr or stack:
+        while stack or curr:
             if curr:
                 stack.append(curr)
                 curr = curr.left
             else:
                 temp = stack[-1].right
-                if not temp:
-                    temp = stack[-1]
-                    stack.pop()
-                    print(temp)
-                    # print(curr.data)
-                    # curr=curr.right
+                if temp is None:
+                    temp = stack.pop()
+                    arr.append(temp.data)
+
+                    while stack and temp == stack[-1].right:
+                        temp = stack.pop()
+                        arr.append(temp.data)
                 else:
                     curr = temp
+
+        return arr
 
 
 """ 
@@ -134,4 +160,7 @@ print("In : ", end="")
 bst.in_order_iter(root)
 
 print("Post : ", end="")
-bst.post_order_iter(root)
+print(bst.post_order_iter_2stack(root))
+
+print("Post : ", end="")
+print(bst.post_order_iter_1stack(root))
