@@ -125,11 +125,50 @@ class Tree:
 
         return arr
 
+    def depth_of_tree_dfs(self, node):
+        if not node:
+            return 0
+        return 1 + max(
+            self.depth_of_tree_dfs(node.left), self.depth_of_tree_dfs(node.right)
+        )
+
+    def is_tree_balanced(self, root):
+        if not root:
+            return True
+        return (
+            abs(self.depth_of_tree_dfs(root.left) - self.depth_of_tree_dfs(root.right))
+            > 1
+        )
+
+    def diameter_of_tree(self, root):
+        diameter = 0
+
+        def dfs(node):
+            nonlocal diameter
+
+            if node is None:
+                return 0
+
+            left = dfs(node.left)
+            right = dfs(node.right)
+
+            # Diameter passing through this node
+            diameter = max(diameter, left + right)
+
+            # Height of this subtree
+            return 1 + max(left, right)
+
+        dfs(root)
+        return diameter
+
 
 """ 
         1
     2       3
 4       5 6     7
+         10          8
+        11               9   
+                            12
 """
 root = Node(1)
 root.left = Node(2)
@@ -137,7 +176,12 @@ root.right = Node(3)
 root.left.left = Node(4)
 root.left.right = Node(5)
 root.right.left = Node(6)
+root.right.left.left = Node(10)
+root.right.left.left.left = Node(11)
 root.right.right = Node(7)
+root.right.right.right = Node(8)
+root.right.right.right.right = Node(9)
+root.right.right.right.right.right = Node(12)
 
 bst = Tree(root)
 
@@ -164,3 +208,12 @@ print(bst.post_order_iter_2stack(root))
 
 print("Post : ", end="")
 print(bst.post_order_iter_1stack(root))
+
+print("Depth : ", end="")
+print(bst.depth_of_tree_dfs(root))
+
+print("Is Tree Balanced : ", end="")
+print(bst.is_tree_balanced(root))
+
+print("Diameter of Tree : ", end="")
+print(bst.diameter_of_tree(root))
