@@ -161,6 +161,26 @@ class Tree:
         dfs(root)
         return diameter
 
+    def max_path_sum(self, root: Node):
+        maxPath = 0
+
+        def max_path(node: Node):
+            nonlocal maxPath
+
+            if node is None:
+                return 0
+
+            left = max_path(node.left)
+            right = max_path(node.right)
+
+            # Diameter passing through this node
+            maxPath = max(maxPath, node.data + left + right)
+
+            # Height of this subtree
+            return root.data + max(left, right)
+
+        return max(max_path(root), maxPath)
+
 
 """ 
         1
@@ -170,18 +190,29 @@ class Tree:
         11               9   
                             12
 """
-root = Node(1)
-root.left = Node(2)
-root.right = Node(3)
-root.left.left = Node(4)
-root.left.right = Node(5)
-root.right.left = Node(6)
-root.right.left.left = Node(10)
-root.right.left.left.left = Node(11)
+# root = Node(1)
+# root.left = Node(2)
+# root.right = Node(3)
+# root.left.left = Node(4)
+# root.left.right = Node(5)
+# root.right.left = Node(6)
+# root.right.left.left = Node(10)
+# root.right.left.left.left = Node(11)
+# root.right.right = Node(7)
+# root.right.right.right = Node(8)
+# root.right.right.right.right = Node(9)
+# root.right.right.right.right.right = Node(12)
+
+""" 
+                -10
+            9           20
+                     15     7
+"""
+root = Node(-10)
+root.left = Node(9)
+root.right = Node(20)
+root.right.left = Node(15)
 root.right.right = Node(7)
-root.right.right.right = Node(8)
-root.right.right.right.right = Node(9)
-root.right.right.right.right.right = Node(12)
 
 bst = Tree(root)
 
@@ -217,3 +248,6 @@ print(bst.is_tree_balanced(root))
 
 print("Diameter of Tree : ", end="")
 print(bst.diameter_of_tree(root))
+
+print("Max Path Sum of Tree : ", end="")
+print(bst.max_path_sum(root))
